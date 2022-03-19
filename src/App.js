@@ -1,11 +1,21 @@
 /* global chrome */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import deleteIcon from "./delete-icon.png";
 import './App.css';
 
 const App = () => {
   const [description, setDescription] = useState("");
   const [tabDetails, setTabDetails] = useState([]);
+
+  useEffect(() => {
+    if (localStorage.getItem("tabDetails") != null) {
+      setTabDetails(JSON.parse(localStorage.getItem("tabDetails")));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tabDetails", JSON.stringify(tabDetails));
+  }, [tabDetails]);
 
   const handleSave = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -45,7 +55,7 @@ const App = () => {
               <tr>
                 <td><a rel="noreferrer" target="_blank" href={item.url}>{item.url}</a></td>
                 <td>{item.about}</td>
-                <td><img id={item.id} src={deleteIcon} alt="delete icon"/></td>
+                <td><img id={item.id} src={deleteIcon} alt="delete icon" /></td>
               </tr>
             );
           })}
