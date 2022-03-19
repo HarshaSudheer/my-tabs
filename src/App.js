@@ -32,7 +32,7 @@ const App = () => {
   }
 
   const handleDeleteAll = () => {
-
+    setTabDetails([]);
   }
 
   return (
@@ -40,7 +40,7 @@ const App = () => {
       <h1>My Tabs</h1>
       <input type="text" maxLength="100" name="about" placeholder="oneline info for this tab" value={description} onChange={event => setDescription(event.target.value)} /><br />
       <button type="button" onClick={handleSave}>SAVE</button>
-      <button type="button" onClick={handleDeleteAll}>DELETE ALL</button>
+      <button type="button" onDoubleClick={handleDeleteAll}>DELETE ALL</button>
       <div className="table-container">
         <table>
           {tabDetails.length > 0 &&
