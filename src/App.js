@@ -1,14 +1,26 @@
+/* global chrome */
 import React, { useState } from 'react';
 import './App.css';
 
 const App = () => {
   const [description, setDescription] = useState("");
+  const [tabDetails, setTabDetails] = useState([]);
 
-  function handleSave() {
-
+  const handleSave = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const updateTabDetails = [
+        ...tabDetails,
+        {
+          url: tabs[0].url,
+          description: description
+        }
+      ];
+      setTabDetails(updateTabDetails);
+      setDescription("");
+    });
   }
 
-  function handleDeleteAll() {
+  const handleDeleteAll = () => {
 
   }
 
