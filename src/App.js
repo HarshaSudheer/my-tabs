@@ -1,5 +1,6 @@
 /* global chrome */
 import React, { useState } from 'react';
+import deleteIcon from "./delete-icon.png";
 import './App.css';
 
 const App = () => {
@@ -30,6 +31,26 @@ const App = () => {
       <input type="text" maxLength="100" name="about" placeholder="oneline info for this tab" value={description} onChange={event => setDescription(event.target.value)} /><br />
       <button type="button" onClick={handleSave}>SAVE</button>
       <button type="button" onClick={handleDeleteAll}>DELETE ALL</button>
+      <div className="table-container">
+        <table>
+          {tabDetails.length > 0 &&
+            <tr>
+              <th>Tab</th>
+              <th>Description</th>
+              <th></th>
+            </tr>
+          }
+          {tabDetails.map((item) => {
+            return (
+              <tr>
+                <td><a rel="noreferrer" target="_blank" href={item.url}>{item.url}</a></td>
+                <td>{item.about}</td>
+                <td><img id={item.id} src={deleteIcon} alt="delete icon"/></td>
+              </tr>
+            );
+          })}
+        </table>
+      </div>
     </div>
   );
 }
