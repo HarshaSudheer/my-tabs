@@ -35,6 +35,13 @@ const App = () => {
     setTabDetails([]);
   }
 
+  const handleDelete = (item) => {
+    const itemIndex = tabDetails.indexOf(item);
+    tabDetails.splice(itemIndex, 1);
+    const updateTabDetails = [...tabDetails];
+    setTabDetails(updateTabDetails);
+  }
+
   return (
     <div>
       <h1>My Tabs</h1>
@@ -55,7 +62,7 @@ const App = () => {
               <tr>
                 <td><a rel="noreferrer" target="_blank" href={item.url}>{item.url}</a></td>
                 <td>{item.about}</td>
-                <td><img id={item.id} src={deleteIcon} alt="delete icon" /></td>
+                <td><img id={item.id} src={deleteIcon} alt="delete icon" onDoubleClick={(item) => handleDelete(item)}/></td>
               </tr>
             );
           })}
